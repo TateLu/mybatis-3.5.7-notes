@@ -154,7 +154,10 @@ class SqlSessionTest extends BaseDataTest {
   @Test
   void shouldSelectAllAuthors() {
     try (SqlSession session = sqlMapper.openSession(TransactionIsolationLevel.SERIALIZABLE)) {
+      //第一次查询
       List<Author> authors = session.selectList("org.apache.ibatis.domain.blog.mappers.AuthorMapper.selectAllAuthors");
+      //第二次查询
+      authors = session.selectList("org.apache.ibatis.domain.blog.mappers.AuthorMapper.selectAllAuthors");
       assertEquals(2, authors.size());
     }
   }
